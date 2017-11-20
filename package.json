@@ -1,0 +1,23 @@
+{
+  "name": "push-notifications-example",
+  "version": "1.0.0",
+  "description": "An Example of Push Notifications App",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barakd/push-notifications-example.git"
+  },
+  "author": "Barak Drechsler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/barakd/push-notifications-example/issues"
+  },
+  "homepage": "https://github.com/barakd/push-notifications-example#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "web-push": "^3.2.2"
+  }
+}
