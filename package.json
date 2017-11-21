@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "An Example of Push Notifications App",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/barakd/push-notifications-example.git"

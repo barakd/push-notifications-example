@@ -1,57 +1,42 @@
 const $button = $('#subscribe-btn');
-const PUBLIC_API_KEY = urlBase64ToUint8Array('BClV-KeO_EQjxTtEibwfs6jCoIitFXo-MX-lyfK5Q2tOch5-cNIEAKcDpHpUaKQGJUwCRIv8bKQIcfqzExRDLfQ');
-let serviceWorkerRegisteration;
 
 registerServiceWorker();
 
 function registerServiceWorker() {
-  if ('serviceWorker' in navigator && 'Notification' in window) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => serviceWorkerRegisteration = reg)
-      .then(setUpButton)
-  }
+  // $reg
 }
 
 function setUpButton(serviceWorkerReg) {
-  $button.removeClass('disabled');
-  $button.click( () => subscribeUser(serviceWorkerReg));
+  // $setupbtn
 }
 
 
 function subscribeUser(registration) {
- $button.addClass('disabled');
-  return askPermession().then(() => {
-    const subscribeOptions = {
-      userVisibleOnly: true, // MUST true always
-      applicationServerKey: PUBLIC_API_KEY,
-    };
-    return registration.pushManager
-      .subscribe(subscribeOptions)
-      .then(saveSubscription);
-  }).finally(() => $button.removeClass('disabled'));
+  // $task 
+
 }
 
 function askPermession() {
-  return new Promise((resolve, reject) => {
-    const promiseResult = Notification.requestPermission(result => resolve(result))
-    if (promiseResult)
-      promiseResult.then(resolve, reject);
-  }).then(result => {
-    if (result !== 'granted') {
-      throw new Error('no permession');
-    }
-  });
+ // $ask
 }
 
 function saveSubscription(pushSubscription) {
-  console.log('Saving PushSubscription: ', JSON.stringify(pushSubscription));  
-  return fetch('http://localhost:3000/subscribe/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(pushSubscription)
-  });
+// $savesub
+}
+
+function enableButton() {
+  $button.removeClass('disabled');
+  $button.prop('disabled', false);
+}
+
+function disableButton() {
+  $button.addClass('disabled');
+  $button.prop('disabled', true);
+}
+
+function userNotAllowed(error) {
+  disableButton();
+  $button.text('You didn\'t allow Notifications');
 }
 
 function urlBase64ToUint8Array(base64String) {

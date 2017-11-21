@@ -37,11 +37,6 @@ app.post('/subscribe', function (req, res) {
     res.send(JSON.stringify({ data: { success: true } }));
 });
 
-app.post('/room-service', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ data: { success: true } })); 
-});
-
 app.post('/push', function (req, res) {
     usersStorage.forEach(subsricption => {
         console.log('sending push!');
