@@ -1,5 +1,6 @@
 const $button = $('#subscribe-btn');
-const PUBLIC_API_KEY = urlBase64ToUint8Array('BClV-KeO_EQjxTtEibwfs6jCoIitFXo-MX-lyfK5Q2tOch5-cNIEAKcDpHpUaKQGJUwCRIv8bKQIcfqzExRDLfQ');
+// Replace here with your server public key
+const PUBLIC_API_KEY = urlBase64ToUint8Array('your server public key');
 
 registerServiceWorker();
 
