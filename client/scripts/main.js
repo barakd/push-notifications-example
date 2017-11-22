@@ -33,6 +33,8 @@ function subscribeUser(registration) {
 }
 
 function askPermession() {
+  // Legacy support Notification.requestPermission can either return a promise, or accept a callback(deprecated)
+  // Side note: most likley callback impls of Notification.requestPermission might not have native promises
   return new Promise((resolve, reject) => {
      const returnedPromise = Notification.requestPermission(result => resolve(result))
      if (returnedPromise)
