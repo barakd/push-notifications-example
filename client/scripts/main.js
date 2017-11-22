@@ -1,27 +1,57 @@
 const $button = $('#subscribe-btn');
+const PUBLIC_API_KEY = urlBase64ToUint8Array('BClV-KeO_EQjxTtEibwfs6jCoIitFXo-MX-lyfK5Q2tOch5-cNIEAKcDpHpUaKQGJUwCRIv8bKQIcfqzExRDLfQ');
 
 registerServiceWorker();
 
 function registerServiceWorker() {
-  // $reg
+    if ('serviceWorker' in navigator && 'Notification' in window) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(setUpButton)
+    } else {
+      $button.text('Your Browser dosent support Push');
+    }
 }
 
 function setUpButton(serviceWorkerReg) {
-  // $setupbtn
+    enableButton();
+    $button.click( () => subscribeUser(serviceWorkerReg));
 }
 
 
 function subscribeUser(registration) {
-  // $task 
+    return askPermession().then(() => {
+         const subscribeOptions = {
+            userVisibleOnly: true, // MUST true always
+            applicationServerKey: PUBLIC_API_KEY,
+          };
+          return registration.pushManager
+            .subscribe(subscribeOptions)
+            .then(saveSubscription);
+    })
 
 }
 
 function askPermession() {
- // $ask
+  return new Promise((resolve, reject) => {
+     const returnedPromise = Notification.requestPermission(result => resolve(result))
+     if (returnedPromise)
+       returnedPromise.then(resolve, reject);
+   }).then(result => {
+     if (result !== 'granted') {
+       throw new Error('no permession');
+     }
+   });
 }
 
 function saveSubscription(pushSubscription) {
-// $savesub
+  console.log('Saving PushSubscription: ', JSON.stringify(pushSubscription));  
+  return fetch('http://localhost:3000/subscribe/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(pushSubscription)
+  });
 }
 
 function enableButton() {
